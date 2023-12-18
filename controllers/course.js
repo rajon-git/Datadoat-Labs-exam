@@ -103,4 +103,21 @@ const deletecourse =async (req, res)=>{
     res.status(500).json(err);
   });
 }
-module.exports= {addCourse, getCourses, getCourse, updateCourse, deletecourse}
+
+const coursebyinstructor =async (req, res)=>{
+    (req, res) => {
+        //var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+      
+        coursemodel
+          .find({
+            instructor: req.query.id
+          })
+      
+          .then(doc => {
+            res.json(doc);
+          })
+          .catch(err => {
+            res.status(500).json(err);
+          });
+}
+module.exports= {addCourse, getCourses, getCourse, updateCourse, deletecourse, coursebyinstructor}
