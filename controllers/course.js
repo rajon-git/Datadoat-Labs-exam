@@ -88,4 +88,19 @@ const updateCourse =async (req, res)=>{
     res.status(500).json(err);
   });
 }
-module.exports= {addCourse, getCourses, getCourse, updateCourse}
+
+const deletecourse =async (req, res)=>{
+    //var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+
+  coursemodel
+  .findOneAndRemove({
+    _id: req.query.id
+  })
+  .then(doc => {
+    res.json(doc);
+  })
+  .catch(err => {
+    res.status(500).json(err);
+  });
+}
+module.exports= {addCourse, getCourses, getCourse, updateCourse, deletecourse}
