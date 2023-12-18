@@ -1,4 +1,4 @@
-const rolemodel=require('../../models/Role')
+const rolemodel=require('../models/Role');
 
 const addRole= async (req, res)=>{
     //req.body
