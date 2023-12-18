@@ -1,7 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const passport = require("passport");
 const fileUpload = require('express-fileupload');
 var multer = require('multer')
 var cors = require('cors');
@@ -10,8 +8,10 @@ const app = express();
 
 app.use(fileUpload());
 //Body Parser
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit:1000000}));
-app.use(bodyParser.json({limit: '50mb', extended: true}));
+// app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit:1000000}));
+// app.use(bodyParser.json({limit: '50mb', extended: true}));
+//routes implement
+readdirSync("./routes").map(r=>app.use("/api/v1",require(`./routes/${r}`)));
 
 
 app.get("/", (req, res) => res.send("Hello World"));
