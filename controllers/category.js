@@ -20,4 +20,20 @@ const addCategory =async (req, res)=>{
     })
 }
 
+const getCategory =async (req, res)=>{
+    //var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+
+    catmodel.findOne({
+        _id: req.query.id
+    })
+        .then(doc => {
+            
+            res.json(doc)
+            
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        })
+}
+
 module.exports= {addCategory, getCategory, updateCategory, allCategories}
