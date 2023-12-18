@@ -67,4 +67,25 @@ const getCourse =async (req, res)=>{
     res.status(500).json(err);
   });
 }
-module.exports= {addCourse, getCourses, getCourse}
+
+const updateCourse =async (req, res)=>{
+     //var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+
+  coursemodel
+  .findOneAndUpdate(
+    {
+      _id: req.query.id
+    },
+    req.body,
+    {
+      new: true
+    }
+  )
+  .then(doc => {
+    res.json(doc);
+  })
+  .catch(err => {
+    res.status(500).json(err);
+  });
+}
+module.exports= {addCourse, getCourses, getCourse, updateCourse}
