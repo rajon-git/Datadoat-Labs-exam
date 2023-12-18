@@ -120,4 +120,5 @@ const coursebyinstructor =async (req, res)=>{
             res.status(500).json(err);
           });
 }
+}
 module.exports= {addCourse, getCourses, getCourse, updateCourse, deletecourse, coursebyinstructor}
