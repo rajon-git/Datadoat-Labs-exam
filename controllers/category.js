@@ -36,4 +36,19 @@ const getCategory =async (req, res)=>{
         })
 }
 
+const updateCategory =async (req, res)=>{
+    catmodel.findOneAndUpdate({
+        _id: req.query.id
+    }, req.body,{
+        new:true
+    })
+        .then(doc => {
+            
+            res.json(doc)
+            
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        })
+}
 module.exports= {addCategory, getCategory, updateCategory, allCategories}
