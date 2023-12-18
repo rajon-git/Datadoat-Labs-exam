@@ -51,4 +51,18 @@ const updateCategory =async (req, res)=>{
             res.status(500).json(err)
         })
 }
+
+const allCategories =async (req, res)=>{
+    catmodel.find()
+        .then(doc => {
+           // res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
+            res.setHeader('Content-Range', 'users 0-5/5');
+            res.json(doc)
+            
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        })
+        
+}
 module.exports= {addCategory, getCategory, updateCategory, allCategories}
