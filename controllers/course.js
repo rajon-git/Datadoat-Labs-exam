@@ -33,4 +33,22 @@ const addCourse =async (req, res)=>{
       });
   });
 }
-module.exports= {addCourse}
+
+const getCourses =async (req, res)=>{
+    //var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+
+  coursemodel
+  .find()
+  .populate({ path: "category", model: "category" })
+  .populate({ path: "instructor", model: "users" })
+
+  .exec(function(err, results) {
+    if (err) {
+      return next(err);
+    }
+    if (results) {
+      return res.json(results);
+    }
+  });
+}
+module.exports= {addCourse, getCourses}
