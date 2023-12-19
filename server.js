@@ -1,27 +1,34 @@
+const { readdirSync } = require("fs");
 const express = require("express");
 const mongoose = require("mongoose");
 const fileUpload = require('express-fileupload');
-var multer = require('multer')
-var cors = require('cors');
+const multer = require('multer');
+const morgan = require("morgan");
+const helmet = require("helmet");
+require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
-
+app.use(helmet());
+app.use(morgan("dev"))
 app.use(fileUpload());
-//Body Parser
-// app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit:1000000}));
-// app.use(bodyParser.json({limit: '50mb', extended: true}));
-//routes implement
-readdirSync("./routes").map(r=>app.use("/api/v1",require(`./routes/${r}`)));
+app.use(cors());
 
+readdirSync("./routes").map(r => app.use("/api/v1", require(`./routes/${r}`)));
 
-app.get("/", (req, res) => res.send("Hello World"));
+app.use('*', (req, res) => {
+  res.status(404).json({status: 'failed', data: 'Hello World'});
+});
 
 const port = process.env.PORT || 8000;
 
-mongoose.connect(process.env.DATABASE)
-        .then(()=>{
-            app.listen(port,()=>{
-                console.log(`Server is running on port ${port}`);
-            });
-        })
-        .catch((error)=> console.log(error));
+
+mongoose
+  .connect(process.env.DATABASE)
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch((error) => console.log(error));
+

@@ -3,7 +3,7 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 
 //Load input  validation
-const validateRegisterInput = require("../../validation/register");
+const validateRegisterInput = require("../validation/register");
 
 const register=async (req,res)=>{
     const { errors, isValid } = validateRegisterInput(req.body);
